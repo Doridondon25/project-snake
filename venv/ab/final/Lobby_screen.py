@@ -84,7 +84,7 @@ class Lobby(tkinter.Toplevel):
             self.start_game()
             print("started")
             print("lets go")
-
+            awdadawd
     def start_game(self):
         self.window = SnakeGame(500, 500, 10, 10)
         self.window.grab_set()
