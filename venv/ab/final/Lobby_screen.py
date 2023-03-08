@@ -11,7 +11,7 @@ import hashlib
 import time
 import tkinter as tk
 from game_screen import *
-
+from game_screen import SnakeGame
 
 class Lobby(tkinter.Toplevel):
     def __init__(self, parent):
@@ -27,8 +27,6 @@ class Lobby(tkinter.Toplevel):
         self.bg = ImageTk.PhotoImage(self.resize)
         self.imgLabel = Label(self, image=self.bg)
         self.imgLabel.pack(expand=NO)
-        #self.welcome = Button(self, text='lobby', command=self.close)
-        #self.welcome.place(x=400, y=400)
 
         self.lbl_headline = Label(self, text="Lobby :", font=("Arial", 100))
         self.lbl_headline.place(x=200, y=50)
@@ -36,15 +34,6 @@ class Lobby(tkinter.Toplevel):
         self.button = Button(self, text="Go back", command=self.close)
         self.button.place(x=750, y=0)
 
-        #self.button = Button(self, text="A chat while waiting", command=self.send_message)
-        #self.button.place(x=670, y=770)
-
-
-        #self.click_btn = PhotoImage(file=r'C:\Users\User\PycharmProjects\pythonProject4\venv\ab\pic\settings.png')
-        #self.img_label = Label(image=self.click_btn)
-        #self.button1 = Button(self, image=self.click_btn, command=self.close, borderwidth=0, )
-        #self.button1.place(x=0, y=0)
-        #self.button1.size(x=100,y=100)
         self.lbl_countdown = Label(self, text="", font=("Hobo Std", 50))
         self.lbl_countdown.place(x=400, y=500)
 
@@ -61,7 +50,6 @@ class Lobby(tkinter.Toplevel):
         self.Client_handler.start()
 
     def handle_waiting_for_players(self):
-        #arr = ["lobby", player[1]]
         username = self.parent.username
         arr = ["lobby", username]
         data = ",".join(arr)
@@ -75,21 +63,24 @@ class Lobby(tkinter.Toplevel):
             print("player after waiting")
             self.list.insert(2, data[0])
             self.count_down()
+            self.close()
             self.start_game()
             print("started")
+            print("lets go")
         elif arr[1]== "start":
             print(arr[0] , " join us ")
             self.list.insert(2, arr[0])
             self.count_down()
+            self.close()
             self.start_game()
             print("started")
             print("lets go")
             #try
-    def start_game(self):
-        self.window = SnakeGame(500, 500, 10, 10)
-        self.window.grab_set()
-        self.withdraw()
 
+    def start_game(self):
+        self.destroy()
+        game = SnakeGame(500, 500, 10, 10)
+        game.start()
 
 
     def count_down(self):
@@ -97,7 +88,7 @@ class Lobby(tkinter.Toplevel):
             self.lbl_countdown["text"] = str(i)
             self.update_idletasks()
             time.sleep(1)
-        #self.lbl_countdown["text"] = "Starting Game!"
+
 
     def close(self):
         self.parent.deiconify()

@@ -24,14 +24,6 @@ class App(tkinter.Tk):
         self.userdb = User()
         self.username= ""
 
-        #self.start = ""
-        #self.img = Image.open(r'C:\Users\User\PycharmProjects\pythonProject4\venv\ab\pic\zenitzu.png')
-        #self.img = Image.open(r'D:\pictuers\5319163.jpg')
-        #self.resize = self.img.resize((800, 800), Image.Resampling.LANCZOS)
-        #self.bg = ImageTk.PhotoImage(self.resize)
-        #self.imgLabel = Label(self, image=self.bg)
-        #self.imgLabel.pack(expand=YES)
-
         self.lbl_email = Label(self, width=20,height=2, text="email :")#fg="white")#bg="black")
         self.lbl_email.place(x=225, y=50)
         self.email = Entry(self, width=20)
@@ -49,12 +41,8 @@ class App(tkinter.Tk):
         self.btn_color.place(x=460, y=40)
 
         self.btn_login = Button(self, text="0", command=self.open_login())
-        #self.btn_login.place(x=200, y=200)
         self.btn_login2 = Button(self, text="Login please", command= self.login_1,fg="black",bg="green")
         self.btn_login2.place(x=200, y=200)
-
-        #self.btn_login1 = Button(self, text=" Return to home", command=self.open_login)#usersfinal.login_1
-        #self.btn_login1.place(x=200, y=400)
 
         self.click_btn = PhotoImage(file=r'C:\Users\User\PycharmProjects\pythonProject4\venv\ab\pic\return (1).png')
         self.img_label = Label(image=self.click_btn)
@@ -81,7 +69,6 @@ class App(tkinter.Tk):
         print(email)
         password = self.password.get()
         print(password)
-        #arr = User().return_user_by_email_password(email, password)
         arr = ["login", email, password]
         insert = ",".join(arr)
         print(insert)
@@ -131,7 +118,7 @@ class App(tkinter.Tk):
         player = MusicPlayer()
         player.run()
         #pass
-        print("hide")
+        print("music")
 
     def backgroundcolor(self):
         c_code = colorchooser.askcolor()
