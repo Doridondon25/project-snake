@@ -10,9 +10,8 @@ import tkinter.messagebox
 import hashlib
 import time
 import tkinter as tk
-from game_screen import *
+#from game_screen import *
 from game_screen import SnakeGame
-
 class Lobby(tkinter.Toplevel):
     def __init__(self, parent):
         super().__init__(parent)
@@ -20,8 +19,6 @@ class Lobby(tkinter.Toplevel):
         self.geometry('800x800')
         self.title('Lobby page')
         self.waitinglist=["me"]
-
-
         self.img = Image.open(r'D:\pictuers\5319163.jpg')
         self.resize = self.img.resize((800, 800), Image.Resampling.LANCZOS)
         self.bg = ImageTk.PhotoImage(self.resize)
@@ -63,30 +60,32 @@ class Lobby(tkinter.Toplevel):
             print("player after waiting")
             self.list.insert(2, data[0])
             self.count_down()
-            self.close()
-            self.start_game()
+            print("finish count")
+            #self.close()
+            print("finish close")
             print("started")
             print("lets go")
+            self.start_game()
         elif arr[1]== "start":
             print(arr[0] , " join us ")
             self.list.insert(2, arr[0])
             self.count_down()
-            self.close()
-            self.start_game()
+            #self.close()
             print("started")
             print("lets go")
+            self.start_game()
             #try
 
     def start_game(self):
-        self.destroy()
-        game = SnakeGame(500, 500, 10, 10)
-        game.start()
-
+        window = SnakeGame(self)
+        window.grab_set()
+        self.withdraw()
+        print("start game")
 
     def count_down(self):
-        for i in range(5, 0, -1):
+        for i in range(3, 0, -1):
             self.lbl_countdown["text"] = str(i)
-            self.update_idletasks()
+            #self.update_idletasks()
             time.sleep(1)
 
 

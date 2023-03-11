@@ -13,21 +13,24 @@ import tkinter as tk
 import tkinter
 import random
 import math
+from endgame_screen import GameOverScreen
 
-
-class SnakeGame:
-    def __init__(self, width, height, snake_block, apple_block):
-        self.width = width
-        self.height = height
-        self.snake_block = snake_block
-        self.apple_block = apple_block
-        self.root = tk.Tk()
-        self.root.title("Snake Game")
-        self.canvas = tk.Canvas(self.root, width=self.width, height=self.height, bg="white")
+class SnakeGame(tkinter.Toplevel):
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.parent = parent
+        self.geometry('550x550')
+        self.title('game page')
+        self.width = 500
+        self.height = 500
+        self.snake_block = 10
+        self.apple_block = 10
+        self.title('Snake Game')
+        self.canvas = tk.Canvas(self, width=self.width, height=self.height, bg="white")
         self.canvas.pack()
         self.score = tk.StringVar()
         self.score.set("Score: 0")
-        self.score_label = tk.Label(self.root, textvariable=self.score, font=("Arial", 14))
+        self.score_label = tk.Label(self, textvariable=self.score, font=("Arial", 14))
         self.score_label.pack()
         self.snake_head = [200, 200]
         self.snake_list = [[200, 200], [190, 200], [180, 200]]
@@ -50,6 +53,8 @@ class SnakeGame:
         self.canvas.delete("snake")
         self.create_snake(self.snake_list)
         self.check_collision()
+        print(self.snake_head)
+        print(self.snake_list)
         self.exit()
 
     def move_down(self, event):
@@ -61,6 +66,8 @@ class SnakeGame:
         self.canvas.delete("snake")
         self.create_snake(self.snake_list)
         self.check_collision()
+        print(self.snake_head)
+        print(self.snake_list)
         self.exit()
 
     def move_left(self, event):
@@ -72,6 +79,8 @@ class SnakeGame:
         self.canvas.delete("snake")
         self.create_snake(self.snake_list)
         self.check_collision()
+        print(self.snake_head)
+        print(self.snake_list)
         self.exit()
 
     def move_right(self, event):
@@ -83,25 +92,29 @@ class SnakeGame:
         self.canvas.delete("snake")
         self.create_snake(self.snake_list)
         self.check_collision()
+        print(self.snake_head)
+        print(self.snake_list)
         self.exit()
 
     def exit(self):
         if self.snake_head[0] >= self.width or self.snake_head[0] < 0 or self.snake_head[1] >= self.height or \
                 self.snake_head[1] < 0:
-            self.root.destroy()
-            self.root.quit()
+            #self.destroy()
+            #self.quit()
+            self.open_endgame()
             print("End of game")
             print("your score is " + str(self.pointssnake1))
         for block in self.snake_list[1:]:
             if self.snake_head[0] == block[0] and self.snake_head[1] == block[1]:
-                self.root.destroy()
-                self.root.quit()
+                #self.destroy()
+                #self.quit()
+                self.open_endgame()
                 print("End of game")
                 print("your score is " + str(self.pointssnake1))
 
     def start(self):
         print("start")
-        self.root.mainloop()
+        self.mainloop()
 
     def random_x(self):
         return random.randint(0, self.width - self.apple_block)
@@ -137,6 +150,10 @@ class SnakeGame:
             self.create_apple()
             self.snake_list.append([0, 0])
 
+    def open_endgame(self):
+        window = GameOverScreen(self)
+        window.grab_set()
+        self.withdraw()
 
 #game = SnakeGame(500, 500, 10, 10)
 #game.start()

@@ -40,7 +40,7 @@ class App(tkinter.Tk):
         self.btn_color = Button(self, text="color", command=self.backgroundcolor)
         self.btn_color.place(x=460, y=40)
 
-        self.btn_login = Button(self, text="0", command=self.open_login())
+        self.btn_login = Button(self, text="0", command=self.open_login)
         self.btn_login2 = Button(self, text="Login please", command= self.login_1,fg="black",bg="green")
         self.btn_login2.place(x=200, y=200)
 
